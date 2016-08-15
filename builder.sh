@@ -19,10 +19,19 @@ case $(head -n1 /etc/issue | cut -f 1 -d ' ') in # Detectamos Sistema Operativo 
     elementary)   OS="ElementaryOS";; # Detecta que es ElementaryOS
     *)          OS="Undefined";; #Detecta que el sistema operativo es indefinido
 esac
-
+if [[ "$OS" = "Debian" ]]; then
+  PKGI = "apt-get install"
+elif [[ "$OS" = "Ubuntu" ]]; then
+  PKGI = "sudo apt-get install"
+elif [[ "$OS" = "Red Hat Enterprice Linux"]]; then
+  PKGI = "yum install"
+elif [[ "$OS" = "ElementaryOS" ]]; then
+  PKGI = "ElementaryOS INSTALLER"
+fi
 #----------------------------------------------------------#
 #                       Compilador                         #
 #----------------------------------------------------------#
+clear
 echo "--------------------------------------"
 echo "--------------------------------------"
 echo "             Welcome To               "
@@ -33,36 +42,43 @@ echo "           Build: "$build"            "
 echo "--------------------------------------"
 echo "--------------------------------------"
 select opt in $options; do
-    if [ "$opt" = "Compile" ]; then
-        echo "---------------------------------------------------"
-        echo "---------------------------------------------------"
-        echo "The source will be compiled without 'Zipaling Apps'"
-        echo "---------------------------------------------------"
-        echo "---------------------------------------------------"
-        zip -r cbos-"$version"-"$date"-"$build"-"$device".zip ./*
-    elif [ "$opt" = "Wipe" ]; then
-        echo "---------------------------------------------------"
-        echo "---------------------------------------------------"
-        echo "           The ZIP will be erased...               "
-        echo "---------------------------------------------------"
-        echo "---------------------------------------------------"
-        rm -f *.zip
-    elif [ "$opt" = "Wipe->Compile" ]; then
-        echo "---------------------------------------------------"
-        echo "---------------------------------------------------"
-        echo "The ZIP will be erased and Re-Compiled for Updates."
-        echo "---------------------------------------------------"
-        echo "---------------------------------------------------"
-        rm -f *.zip
-        zip -r cbos-"$version"-"$date"-"$build"-"$device".zip ./*
-    elif [ "$opt" = "Exit" ]; then
-        clear
-        echo "--------------------------------------"
-        echo "--------------------------------------"
-        echo "             Bye Bye!! :D             "
-        echo "        Program END: "$date"          "
-        echo "--------------------------------------"
-        echo "--------------------------------------"
-        break
+    if [[ "$opt" = "Compile" ]]; then
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      echo "The source will be compiled without 'Zipaling Apps'"
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      zip -r cbos-"$version"-"$date"-"$build"-"$device".zip ./*
+    elif [[ "$opt" = "Wipe" ]]; then
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      echo "           The ZIP will be erased...               "
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      rm -f *.zip
+    elif [[ "$opt" = "Wipe->Compile" ]]; then
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      echo "The ZIP will be erased and Re-Compiled for Updates."
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      rm -f *.zip
+      zip -r cbos-"$version"-"$date"-"$build"-"$device".zip ./*
+    elif [[ "$opt" = "Install Dependencies" ]]; then
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      echo "             Installing dependencies               "
+      echo "---------------------------------------------------"
+      echo "---------------------------------------------------"
+      break
+    elif [[ "$opt" = "Exit" ]]; then
+      clear
+      echo "--------------------------------------"
+      echo "--------------------------------------"
+      echo "             Bye Bye!! :D             "
+      echo "        Program END: "$date"          "
+      echo "--------------------------------------"
+      echo "--------------------------------------"
+      break
     fi
 done
