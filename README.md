@@ -11,7 +11,9 @@
 # Ejecutar Compilador
 
 Escritorio (No ROOT):
+
 `wget https://raw.githubusercontent.com/CyanBlack/CyanBlack_Compiler/CyanBlack/builder.sh; chmod 777 builder.sh; sudo ./builder.sh`
 
 Servidores (ROOT):
+
 `wget https://raw.githubusercontent.com/CyanBlack/CyanBlack_Compiler/CyanBlack/builder.sh; chmod 777 builder.sh; ./builder.sh`
