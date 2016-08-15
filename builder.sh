@@ -6,16 +6,18 @@
 #                  Variables y funciones                   #
 #----------------------------------------------------------#
 version="0.5" # Version de la ROM (1.0 - 2.0 - etc...).
-device="cooperve" # Para informar al usuario del dispositivo al cual soporta el telefono (cooper - cooperve - tass - tassve - ghost - condor - etc...).
+device="cooperve" # Para informar al usuario del dispositivo el cual soporta la ROM compilada (cooper - cooperve - tass - tassve - ghost - condor - etc...).
 build="unofficial" # La build de la ROM (unofficial - official - beta - nightly - snapshot).
 date=`date +%Y-%m-%d` # Fecha de la compilacion de la ROM. Esta no se puede editar.
 PS3="Please enter the option here: " # Pregunta que opcion quieres (?)
 options="Compile Wipe Wipe->Compile Exit" # Opciones
 
 case $(head -n1 /etc/issue | cut -f 1 -d ' ') in # Detectamos Sistema Operativo (Nada importante)
-    Debian)     OS="debian" ;; # Detecta que es Debian
-    Ubuntu)     OS="ubuntu" ;; # Detecta que es Ubuntu
-    *)          OS="rhel" ;; # Detecta que es RHel (Centos normalmente)
+    Debian)     OS="Debian" ;; # Detecta que es Debian
+    Ubuntu)     OS="Ubuntu" ;; # Detecta que es Ubuntu
+    rhel)     OS="Red Hat Enterprice Linux" ;; # Detecta que es RHel (Centos normalmente)
+    elementary)   OS="ElementaryOS";; # Detecta que es ElementaryOS
+    *)          OS="Undefined";; #Detecta que el sistema operativo es indefinido
 esac
 
 #----------------------------------------------------------#
@@ -25,7 +27,9 @@ echo "--------------------------------------"
 echo "--------------------------------------"
 echo "             Welcome To               "
 echo "         CyanBlack Compiler           "
-echo "     Operative System "$OS"           "
+echo "       Operative System: "$OS"         "
+echo "          Device: "$device"           "
+echo "           Build: "$build"            "
 echo "--------------------------------------"
 echo "--------------------------------------"
 select opt in $options; do
